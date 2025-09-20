@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Embedded CSS (Combined from style.css, device.css, player.css, responsive.css) -->
     <style>
-        /* Global Styles from style.css */
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -71,11 +71,7 @@
             font-size: clamp(2.5rem, 4vw, 4rem);
             margin-bottom: 3rem;
             text-align: center;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: #fff; /* Fallback to white */
+            color: #fff; /* Solid white for visibility */
         }
 
         /* Container */
@@ -200,11 +196,7 @@
         .hero-title {
             font-size: clamp(3rem, 5vw, 5rem);
             margin-bottom: 2rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: #fff; /* Fallback to white for visibility */
+            color: #fff; /* Solid white for visibility */
         }
 
         .hero-subtitle {
@@ -2277,11 +2269,11 @@
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>contact@matheussa.com</span>
+                            <span>multitask_@outlook.com</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <span>+55 (11) 99999-9999</span>
+                            <span>+55 (14) 99662-1675</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
@@ -3973,24 +3965,28 @@ function handleFormSubmit(event) {
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
     
-    // Simulate form submission (replace with actual endpoint)
+    // Simulate form submission (replace with actual endpoint if needed)
     setTimeout(() => {
         // Reset form
         form.reset();
         
-        // Show success message
-        submitBtn.textContent = 'Message Sent!';
-        setTimeout(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-        
-        // Analytics event
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'form_submit', {
-                'form_name': 'contact_form'
-            });
+        // Create personalized WhatsApp message
+        let message = `Hi Matheus, my name is ${data.name}`;
+        if (data.company) {
+            message += `, I work on ${data.company}`;
         }
+        message += ` and I want ${data.project}`;
+        
+        // WhatsApp link
+        const whatsappNumber = '5514996621675'; // Your number without + or spaces
+        const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        
+        // Redirect to WhatsApp
+        window.location.href = whatsappLink;
+        
+        // Reset button (though redirect happens)
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     }, 2000);
 }
 
