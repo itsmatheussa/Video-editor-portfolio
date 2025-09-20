@@ -2231,7 +2231,7 @@
                 </div>
                 <div class="about-image">
                     <div class="image-frame">
-                        <span class="profile-placeholder">MS</span>
+                        <img src="matheus_photo.jpg" alt="Matheus Sá, a young man in a black shirt looking at the camera with buildings in the background">
                     </div>
                 </div>
             </div>
@@ -2284,19 +2284,19 @@
                 <form class="contact-form">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Enter your full name" required>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Enter a valid email address" required>
+                        <input type="email" id="email" name="email" placeholder="Enter a valid email address" required>
                     </div>
                     <div class="form-group">
                         <label for="company">Company</label>
-                        <input type="text" id="company" placeholder="Your company name (optional)">
+                        <input type="text" id="company" name="company" placeholder="Your company name (optional)">
                     </div>
                     <div class="form-group">
                         <label for="project">Project</label>
-                        <textarea id="project" placeholder="Describe your project details" required></textarea>
+                        <textarea id="project" name="project" placeholder="Describe your project details" required></textarea>
                     </div>
                     <button type="submit" class="btn-primary">Send Message</button>
                 </form>
@@ -3971,11 +3971,11 @@ function handleFormSubmit(event) {
         form.reset();
         
         // Create personalized WhatsApp message
-        let message = `Hi Matheus, my name is ${data.name}`;
+        let message = `Hi Matheus, my name is ${data.name || 'undefined'}`;
         if (data.company) {
-            message += `, I work on ${data.company}`;
+            message += `, i work on ${data.company}`;
         }
-        message += ` and I want ${data.project}`;
+        message += ` and i want ${data.project || 'undefined'}`;
         
         // WhatsApp link
         const whatsappNumber = '5514996621675'; // Your number without + or spaces
