@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -811,6 +810,7 @@
             align-items: center;
             padding: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
         .platform-header h2 {
@@ -839,6 +839,22 @@
             background: var(--accent-color);
             border-color: var(--accent-color);
             color: white;
+        }
+
+        .close-device {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s var(--easing-smooth);
+        }
+
+        .close-device:hover {
+            color: red;
         }
 
         /* Desktop Video Grid */
@@ -1143,8 +1159,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
             display: flex;
@@ -1154,7 +1170,7 @@
             visibility: hidden;
             transition: all 0.6s var(--easing-cinematic);
             z-index: 100;
-            border-radius: 8px;
+            border-radius: 0;
         }
 
         .video-player-overlay.active {
@@ -1163,18 +1179,17 @@
         }
 
         .player-container {
-            width: 90%;
-            height: 90%;
+            width: 100%;
+            height: 100%;
             position: relative;
             display: flex;
             flex-direction: column;
-            max-width: 800px;
         }
 
         .close-player {
             position: absolute;
-            top: -40px;
-            right: 0;
+            top: 10px;
+            right: 10px;
             width: 40px;
             height: 40px;
             background: rgba(255, 255, 255, 0.1);
@@ -1188,6 +1203,7 @@
             cursor: pointer;
             transition: all 0.3s var(--easing-smooth);
             backdrop-filter: blur(10px);
+            z-index: 101;
         }
 
         .close-player:hover {
@@ -1200,9 +1216,9 @@
         .video-wrapper {
             flex: 1;
             position: relative;
-            border-radius: 12px;
+            border-radius: 0;
             overflow: hidden;
-            box-shadow: var(--shadow-xl);
+            box-shadow: none;
             background: #000;
         }
 
@@ -1210,7 +1226,7 @@
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 12px;
+            border-radius: 0;
         }
 
         .video-info {
@@ -1266,7 +1282,7 @@
             cursor: pointer;
             transition: all 0.3s var(--easing-smooth);
             z-index: 10;
-            display: none; /* Hidden by default */
+            display: block;
         }
 
         .video-nav:hover {
@@ -1279,11 +1295,6 @@
 
         .next {
             right: 10px;
-        }
-
-        /* Show nav in fullscreen */
-        .video-wrapper.fullscreen .video-nav {
-            display: block;
         }
 
         /* Custom Video Controls (if needed for custom player) */
@@ -2117,8 +2128,27 @@
                                             <button class="nav-btn" data-filter="ads">Ads</button>
                                             <button class="nav-btn" data-filter="shorts">Shorts</button>
                                         </nav>
+                                        <button class="close-device"><i class="fas fa-times"></i></button>
                                     </div>
                                     <div class="video-grid"></div>
+                                    <!-- Video Player Overlay (Added next/prev buttons for fullscreen navigation) -->
+                                    <div id="videoPlayerOverlay" class="video-player-overlay">
+                                        <div class="player-container">
+                                            <button id="closePlayer" class="close-player"><i class="fas fa-times"></i></button>
+                                            <div class="video-wrapper">
+                                                <iframe id="videoFrame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                                <button id="prevVideo" class="video-nav prev"><i class="fas fa-arrow-left"></i></button>
+                                                <button id="nextVideo" class="video-nav next"><i class="fas fa-arrow-right"></i></button>
+                                            </div>
+                                            <div class="video-info">
+                                                <h3 id="videoTitle"></h3>
+                                                <p id="videoDescription"></p>
+                                                <div class="video-actions">
+                                                    <button id="videoCTA" class="btn-cta">View More</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2138,6 +2168,7 @@
                                         <button class="nav-btn" data-filter="ads">Ads</button>
                                         <button class="nav-btn" data-filter="shorts">Shorts</button>
                                     </nav>
+                                    <button class="close-device"><i class="fas fa-times"></i></button>
                                 </div>
                                 <div class="mobile-feed"></div>
                             </div>
@@ -2311,25 +2342,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Video Player Overlay (Added next/prev buttons for fullscreen navigation) -->
-    <div id="videoPlayerOverlay" class="video-player-overlay">
-        <div class="player-container">
-            <button id="closePlayer" class="close-player"><i class="fas fa-times"></i></button>
-            <div class="video-wrapper">
-                <iframe id="videoFrame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                <button id="prevVideo" class="video-nav prev" style="display: none;"><i class="fas fa-arrow-left"></i></button>
-                <button id="nextVideo" class="video-nav next" style="display: none;"><i class="fas fa-arrow-right"></i></button>
-            </div>
-            <div class="video-info">
-                <h3 id="videoTitle"></h3>
-                <p id="videoDescription"></p>
-                <div class="video-actions">
-                    <button id="videoCTA" class="btn-cta">View More</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Embedded JavaScript (Combined from device.js, animations.js, player.js, main.js) -->
     <script>
@@ -3141,7 +3153,7 @@ class VideoPlayerController {
             this.closeButton.addEventListener('click', () => this.close());
         }
         
-        // Overlay click to close
+        // Overlay click to close (but not on content)
         if (this.overlayElement) {
             this.overlayElement.addEventListener('click', (e) => {
                 if (e.target === this.overlayElement) {
@@ -3182,15 +3194,15 @@ class VideoPlayerController {
     }
     
     handleFullscreenChange() {
-        if (document.fullscreenElement === this.playerElement.parentElement) {  // Adjusted to check parent for better compatibility
+        if (document.fullscreenElement) {
             // In fullscreen, show nav buttons
             if (this.prevButton) this.prevButton.style.display = 'block';
             if (this.nextButton) this.nextButton.style.display = 'block';
             this.overlayElement.classList.add('fullscreen');
         } else {
             // Out of fullscreen, hide nav buttons
-            if (this.prevButton) this.prevButton.style.display = 'none';
-            if (this.nextButton) this.nextButton.style.display = 'none';
+            if (this.prevButton) this.prevButton.style.display = 'block';  // Always show
+            if (this.nextButton) this.nextButton.style.display = 'block';  // Always show
             this.overlayElement.classList.remove('fullscreen');
         }
     }
@@ -3201,9 +3213,7 @@ class VideoPlayerController {
         if (this.currentIndex >= filteredVideos.length) this.currentIndex = 0;
         
         const nextVideo = filteredVideos[this.currentIndex];
-        this.currentVideo = nextVideo;
-        this.updatePlayerContent();
-        this.loadVideo();
+        this.open(nextVideo);
     }
     
     setupKeyboardControls() {
@@ -3241,9 +3251,8 @@ class VideoPlayerController {
     
     open(videoData) {
         if (this.isOpen) {
-            this.currentVideo = videoData;
-            this.updatePlayerContent();
-            this.loadVideo();
+            this.close();
+            setTimeout(() => this.open(videoData), 300);
             return;
         }
         
@@ -3734,6 +3743,14 @@ function setupEventListeners() {
         closePlayer.addEventListener('click', closeVideoPlayer);
     }
     
+    // Close device buttons
+    document.querySelectorAll('.close-device').forEach(btn => {
+        btn.addEventListener('click', () => {
+            isDeviceOpen = false;
+            window.deviceController.closeDevice();
+        });
+    });
+    
     // Escape key to close player
     document.addEventListener('keydown', handleKeyDown);
     
@@ -3911,16 +3928,7 @@ function openDeviceAndScroll() {
             block: 'start'
         });
     }
-    setTimeout(openDevice, 500);
-    // New: after opening device, open random video and fullscreen
-    setTimeout(() => {
-        const randomIndex = Math.floor(Math.random() * filteredVideos.length);
-        const randomVideo = filteredVideos[randomIndex];
-        window.videoPlayerController.open(randomVideo);
-        setTimeout(() => {
-            window.videoPlayerController.toggleFullscreen();
-        }, 1000); // delay to allow player to load
-    }, 2000); // after device opens
+    setTimeout(openDevice, 500); // Delay to allow scroll before opening
 }
 
 function setupScrollAnimations() {
