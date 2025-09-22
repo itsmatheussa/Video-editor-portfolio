@@ -1159,8 +1159,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
             display: flex;
@@ -1170,7 +1170,7 @@
             visibility: hidden;
             transition: all 0.6s var(--easing-cinematic);
             z-index: 100;
-            border-radius: 0;
+            border-radius: 8px;
         }
 
         .video-player-overlay.active {
@@ -1179,17 +1179,18 @@
         }
 
         .player-container {
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            height: 90%;
             position: relative;
             display: flex;
             flex-direction: column;
+            max-width: 800px;
         }
 
         .close-player {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: -40px;
+            right: 0;
             width: 40px;
             height: 40px;
             background: rgba(255, 255, 255, 0.1);
@@ -1203,7 +1204,6 @@
             cursor: pointer;
             transition: all 0.3s var(--easing-smooth);
             backdrop-filter: blur(10px);
-            z-index: 101;
         }
 
         .close-player:hover {
@@ -1216,40 +1216,46 @@
         .video-wrapper {
             flex: 1;
             position: relative;
-            border-radius: 0;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: none;
+            box-shadow: var(--shadow-xl);
             background: #000;
+            z-index: 1;
         }
 
         .video-wrapper iframe {
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 0;
+            border-radius: 12px;
+            z-index: 1;
         }
 
         .video-info {
             padding: 1.5rem 0;
             color: var(--text-primary);
+            z-index: 0;
         }
 
         .video-info h3 {
             font-size: 1.5rem;
             margin-bottom: 0.75rem;
             font-weight: 600;
+            z-index: 0;
         }
 
         .video-info p {
             color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 1.5rem;
+            z-index: 0;
         }
 
         .video-actions {
             display: flex;
             gap: 1rem;
             align-items: center;
+            z-index: 0;
         }
 
         .btn-cta {
@@ -1282,7 +1288,7 @@
             cursor: pointer;
             transition: all 0.3s var(--easing-smooth);
             z-index: 10;
-            display: block;
+            display: none; /* Hidden by default */
         }
 
         .video-nav:hover {
@@ -1295,6 +1301,11 @@
 
         .next {
             right: 10px;
+        }
+
+        /* Show nav in fullscreen */
+        .video-wrapper.fullscreen .video-nav {
+            display: block;
         }
 
         /* Custom Video Controls (if needed for custom player) */
@@ -1682,6 +1693,7 @@
             
             .hero-subtitle {
                 font-size: 1.1rem;
+                margin-bottom: 2rem;
             }
             
             .hero-cta {
@@ -2083,6 +2095,41 @@
                 display: none;
             }
         }
+
+        .device.closing .laptop-screen-frame {
+            animation: laptopClose 2s var(--easing-cinematic) forwards;
+        }
+
+        @keyframes laptopClose {
+            0% {
+                transform: rotateX(-15deg);
+            }
+            50% {
+                transform: rotateX(-10deg);
+            }
+            100% {
+                transform: rotateX(0deg);
+            }
+        }
+
+        .device.closing .screen-content {
+            animation: screenShut 1.5s var(--easing-cinematic) forwards;
+        }
+
+        @keyframes screenShut {
+            0% {
+                opacity: 1;
+                filter: brightness(1);
+            }
+            20% {
+                opacity: 0.7;
+                filter: brightness(0.6);
+            }
+            100% {
+                opacity: 0;
+                filter: brightness(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -2101,8 +2148,7 @@
         <div class="hero-content container">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    Videos that Capture Attention
-                    and Generate Impact.
+                    Videos that Capture Attention and Generate Impact.
                 </h1>
                 <p class="hero-subtitle">
                     I am Matheus Sá — director and editor.
@@ -2171,6 +2217,24 @@
                                     <button class="close-device"><i class="fas fa-times"></i></button>
                                 </div>
                                 <div class="mobile-feed"></div>
+                                <!-- Video Player Overlay for mobile -->
+                                <div id="videoPlayerOverlayMobile" class="video-player-overlay">
+                                    <div class="player-container">
+                                        <button id="closePlayerMobile" class="close-player"><i class="fas fa-times"></i></button>
+                                        <div class="video-wrapper">
+                                            <iframe id="videoFrameMobile" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                            <button id="prevVideoMobile" class="video-nav prev"><i class="fas fa-arrow-left"></i></button>
+                                            <button id="nextVideoMobile" class="video-nav next"><i class="fas fa-arrow-right"></i></button>
+                                        </div>
+                                        <div class="video-info">
+                                            <h3 id="videoTitleMobile"></h3>
+                                            <p id="videoDescriptionMobile"></p>
+                                            <div class="video-actions">
+                                                <button id="videoCTAMobile" class="btn-cta">View More</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2663,35 +2727,42 @@ class DeviceController {
     closeDevice() {
         if (this.deviceState !== 'open') return;
         
-        this.deviceState = 'closed';
+        this.deviceState = 'closing';
         const device = this.getCurrentDevice();
         
         if (device) {
+            device.classList.add('closing');
             device.classList.remove('opening', 'mobile-opening', 'device-open');
             
-            // Reset transforms
-            if (this.isMobile) {
-                const phoneFrame = device.querySelector('.phone-frame');
-                if (phoneFrame) {
-                    phoneFrame.style.transform = 'translateY(-100px) scale(0.8)';
-                    phoneFrame.style.opacity = '0';
-                }
-            } else {
-                const laptopScreenFrame = device.querySelector('.laptop-screen-frame');
-                if (laptopScreenFrame) {
-                    laptopScreenFrame.style.transform = 'rotateX(0deg)';
-                }
-            }
-            
-            // Hide screen content
-            if (this.screenContent) {
-                this.screenContent.style.opacity = '0';
-            }
-            
-            // Show hint again
+            // Reset transforms after animation
             setTimeout(() => {
-                this.showDeviceHint();
-            }, 1000);
+                // Reset transforms
+                if (this.isMobile) {
+                    const phoneFrame = device.querySelector('.phone-frame');
+                    if (phoneFrame) {
+                        phoneFrame.style.transform = 'translateY(-100px) scale(0.8)';
+                        phoneFrame.style.opacity = '0';
+                    }
+                } else {
+                    const laptopScreenFrame = device.querySelector('.laptop-screen-frame');
+                    if (laptopScreenFrame) {
+                        laptopScreenFrame.style.transform = 'rotateX(0deg)';
+                    }
+                }
+                
+                // Hide screen content
+                if (this.screenContent) {
+                    this.screenContent.style.opacity = '0';
+                }
+                
+                device.classList.remove('closing');
+                this.deviceState = 'closed';
+                
+                // Show hint again
+                setTimeout(() => {
+                    this.showDeviceHint();
+                }, 1000);
+            }, 2000); // Match animation duration
         }
     }
     
@@ -3120,12 +3191,13 @@ window.TextRevealAnimation = TextRevealAnimation;
 // Custom Video Player Controller from player.js
 
 class VideoPlayerController {
-    constructor() {
+    constructor(isMobile = false) {
         this.isOpen = false;
         this.currentVideo = null;
         this.playerElement = null;
         this.overlayElement = null;
         this.currentIndex = 0;
+        this.isMobile = isMobile;
         
         this.init();
     }
@@ -3137,14 +3209,25 @@ class VideoPlayerController {
     }
     
     setupElements() {
-        this.overlayElement = document.getElementById('videoPlayerOverlay');
-        this.playerElement = document.getElementById('videoFrame');
-        this.closeButton = document.getElementById('closePlayer');
-        this.titleElement = document.getElementById('videoTitle');
-        this.descriptionElement = document.getElementById('videoDescription');
-        this.ctaButton = document.getElementById('videoCTA');
-        this.prevButton = document.getElementById('prevVideo');
-        this.nextButton = document.getElementById('nextVideo');
+        if (this.isMobile) {
+            this.overlayElement = document.getElementById('videoPlayerOverlayMobile');
+            this.playerElement = document.getElementById('videoFrameMobile');
+            this.closeButton = document.getElementById('closePlayerMobile');
+            this.titleElement = document.getElementById('videoTitleMobile');
+            this.descriptionElement = document.getElementById('videoDescriptionMobile');
+            this.ctaButton = document.getElementById('videoCTAMobile');
+            this.prevButton = document.getElementById('prevVideoMobile');
+            this.nextButton = document.getElementById('nextVideoMobile');
+        } else {
+            this.overlayElement = document.getElementById('videoPlayerOverlay');
+            this.playerElement = document.getElementById('videoFrame');
+            this.closeButton = document.getElementById('closePlayer');
+            this.titleElement = document.getElementById('videoTitle');
+            this.descriptionElement = document.getElementById('videoDescription');
+            this.ctaButton = document.getElementById('videoCTA');
+            this.prevButton = document.getElementById('prevVideo');
+            this.nextButton = document.getElementById('nextVideo');
+        }
     }
     
     setupEventListeners() {
@@ -3194,15 +3277,15 @@ class VideoPlayerController {
     }
     
     handleFullscreenChange() {
-        if (document.fullscreenElement) {
+        if (document.fullscreenElement === this.playerElement) {
             // In fullscreen, show nav buttons
             if (this.prevButton) this.prevButton.style.display = 'block';
             if (this.nextButton) this.nextButton.style.display = 'block';
             this.overlayElement.classList.add('fullscreen');
         } else {
             // Out of fullscreen, hide nav buttons
-            if (this.prevButton) this.prevButton.style.display = 'block';  // Always show
-            if (this.nextButton) this.nextButton.style.display = 'block';  // Always show
+            if (this.prevButton) this.prevButton.style.display = 'none';
+            if (this.nextButton) this.nextButton.style.display = 'none';
             this.overlayElement.classList.remove('fullscreen');
         }
     }
@@ -3578,6 +3661,8 @@ function createEnhancedVideoCard(video, index, isMobile = false) {
     card.addEventListener('click', () => {
         if (window.videoPlayerController) {
             window.videoPlayerController.open(video);
+        } else if (window.videoPlayerControllerMobile) {
+            window.videoPlayerControllerMobile.open(video);
         }
     });
     
@@ -3599,7 +3684,8 @@ function getCategoryLabel(category) {
 
 // Initialize player controller when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    window.videoPlayerController = new VideoPlayerController();
+    window.videoPlayerController = new VideoPlayerController(false);
+    window.videoPlayerControllerMobile = new VideoPlayerController(true);
 });
 
 // Export for global access
@@ -4058,4 +4144,3 @@ window.scrollToContact = scrollToContact;
     </script>
 </body>
 </html>
-```
