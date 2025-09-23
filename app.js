@@ -93,14 +93,16 @@ function setupContact() {
   const updateLinkAndEnable = () => {
     const text = buildMessage();
     wa.href = `https://wa.me/${phone}?text=${encode(text)}`;
-    if (nameInput.value.trim() && companyInput.value.trim() && projectInput.value.trim()) {
-      wa.disabled = false;
-    } else {
-      wa.disabled = true;
-    }
+    const allFilled = nameInput.value.trim() && companyInput.value.trim() && projectInput.value.trim();
+    wa.classList.toggle('disabled', !allFilled);
   };
   form.addEventListener('input', updateLinkAndEnable);
   updateLinkAndEnable();
+  wa.addEventListener('click', (e) => {
+    if (wa.classList.contains('disabled')) {
+      e.preventDefault();
+    }
+  });
 }
 
 function setYear(){ $('#year').textContent = new Date().getFullYear(); }
