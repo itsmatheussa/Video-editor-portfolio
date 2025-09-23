@@ -1,288 +1,264 @@
+<DOCUMENT filename="index.html">
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0B0D10">
-  <title>Matheus — Cinematic Video Editing Portfolio</title>
-  <meta name="description" content="Matheus — video editor. Cinematic, conversion-focused edits for brands and creators. Enter the in-device showcase and watch selected work.">
-  <link rel="preload" href="styles.css" as="style">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matheus - Video Editing</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <a class="skip-link" href="#content">Skip to content</a>
-  <header class="site-header" role="banner" aria-label="Site header">
-    <div class="container">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">M</div>
-        <div class="brand-copy">
-          <strong>Matheus</strong>
-          <span>Video Editing</span>
-        </div>
-      </div>
-      <nav class="nav" role="navigation" aria-label="Primary">
-        <a href="#work">Work</a>
-        <a href="#cases">Case Studies</a>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#pricing">Pricing</a>
-        <a class="btn btn-accent" href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="content" class="main" role="main">
-    <!-- HERO: 3D Laptop / Mobile Device -->
-    <section class="hero" aria-label="Hero">
-      <div class="container">
-        <div class="hero-copy">
-          <h1 class="headline">Videos that capture attention and drive results.</h1>
-          <p class="subheadline">I'm Matheus — a video editor focused on performance. I turn briefs into cinematic narratives that convert.</p>
-          <div class="cta-row">
-            <a href="#work" class="btn btn-accent">View Portfolio</a>
-            <a href="#contact" class="btn btn-ghost">Book a call</a>
-          </div>
-        </div>
-
-        <!-- 3D Laptop Mockup -->
-        <div class="stage" aria-hidden="true">
-          <div class="laptop" id="laptop" aria-label="3D laptop mockup">
-            <div class="lid">
-              <div class="screen-glow"></div>
-              <div class="bezel">
-                <div class="camera-dot"></div>
-                <div class="device-screen">
-                  <!-- In-device UI -->
-                  <div class="in-device-ui">
-                    <div class="in-device-header">
-                      <div class="channel">Matheus Channel</div>
-                      <div class="filters" role="tablist" aria-label="Video filters">
-                        <button class="filter active" data-filter="all" role="tab" aria-selected="true">All</button>
-                        <button class="filter" data-filter="case">Case Studies</button>
-                        <button class="filter" data-filter="ad">Ads</button>
-                        <button class="filter" data-filter="short">Shorts</button>
-                        <button class="filter" data-filter="music">Music</button>
-                        <button class="filter" data-filter="reel">Reels</button>
-                      </div>
-                    </div>
-
-                    <div id="gallery" class="gallery reveal" aria-live="polite">
-                      <!-- Thumbnails injected by JS -->
-                    </div>
-                  </div>
+    <a class="skip-link" href="#main">Skip to content</a>
+    
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="#">
+                <div class="logo">M</div>
+                <div class="brand-copy">
+                    <strong>Matheus</strong>
+                    <span>Video Editing</span>
                 </div>
-              </div>
-            </div>
-            <div class="base">
-              <div class="keyboard"></div>
-              <div class="trackpad"></div>
-            </div>
-          </div>
+            </a>
+            <nav class="nav">
+                <a href="#work">Work</a>
+                <a href="#cases">Case Studies</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </nav>
         </div>
-      </div>
-    </section>
+    </header>
 
-    <!-- Featured Cases -->
-    <section id="cases" class="cases section" aria-label="Featured cases">
-      <div class="container">
-        <h2>Featured Case Results</h2>
-        <div class="case-grid reveal">
-          <article class="case">
-            <div class="case-media case-media-duo">
-              <img src="assets/case-product-1.jpg" alt="Product Launch Sizzle frame 1" loading="lazy" class="case-img">
-              <img src="assets/case-product-2.jpg" alt="Product Launch Sizzle frame 2" loading="lazy" class="case-img">
+    <main id="main">
+        <section class="hero reveal">
+            <div class="container">
+                <div class="hero-copy">
+                    <h1 class="headline">Videos that capture attention and drive results.</h1>
+                    <p class="subheadline">I'm Matheus — a video editor focused on performance. I turn briefs into cinematic narratives that convert.</p>
+                    <div class="cta-row">
+                        <a class="btn btn-accent" href="#work">View Portfolio</a>
+                        <a class="btn btn-ghost" href="#contact">Book a call</a>
+                    </div>
+                </div>
+                <div class="stage">
+                    <div class="laptop">
+                        <div class="lid">
+                            <div class="bezel">
+                                <div class="camera-dot"></div>
+                                <div class="device-screen">
+                                    <div class="in-device-ui">
+                                        <header class="in-device-header">
+                                            <div class="channel">Matheus Channel</div>
+                                            <nav class="filters">
+                                                <button class="filter active" data-filter="all">All</button>
+                                                <button class="filter" data-filter="case">Case Studies</button>
+                                                <button class="filter" data-filter="ad">Ads</button>
+                                                <button class="filter" data-filter="short">Shorts</button>
+                                                <button class="filter" data-filter="music">Music</button>
+                                                <button class="filter" data-filter="reel">Reels</button>
+                                            </nav>
+                                        </header>
+                                        <div id="gallery" class="gallery"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="screen-glow"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="case-copy">
-              <h3>Product Launch Sizzle</h3>
-              <ul>
-                <li>Cut average watch time to 00:06 before CTA.</li>
-                <li>Lifted CTR by 37% vs. prior creative.</li>
-                <li>Delivered 12x short-form variations in 48 hours.</li>
-              </ul>
-              <a href="#work" class="case-link">See project →</a>
+        </section>
+
+        <section id="cases" class="section reveal">
+            <div class="container">
+                <h2>Featured Case Results</h2>
+                <div class="case-grid">
+                    <div class="case">
+                        <div class="case-media">
+                            <img class="case-img" src="https://i.ytimg.com/vi/32V0GzI7I2o/hqdefault.jpg" alt="Product Launch Sizzle">
+                        </div>
+                        <div class="case-copy">
+                            <h3>Product Launch Sizzle</h3>
+                            <ul>
+                                <li>Cut average watch time to 00:06 before CTA.</li>
+                                <li>Lifted CTR by 37% vs. prior creative.</li>
+                                <li>Delivered 12x short-form variations in 48 hours.</li>
+                            </ul>
+                            <a class="see-project" href="#">See project →</a>
+                        </div>
+                    </div>
+                    <div class="case">
+                        <div class="case-media">
+                            <img class="case-img" src="https://i.ytimg.com/vi/9zOpEKGi1fA/hqdefault.jpg" alt="UGC Performance Edit">
+                        </div>
+                        <div class="case-copy">
+                            <h3>UGC Performance Edit</h3>
+                            <ul>
+                                <li>Hook-first edit improved hold rate to 41% at 3s.</li>
+                                <li>CPV down 29% across paid distribution.</li>
+                                <li>Subtitles styled for retention on mobile.</li>
+                            </ul>
+                            <a class="see-project" href="#">See project →</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </article>
-          <article class="case">
-            <div class="case-media case-media-duo">
-              <img src="assets/case-ugc-1.jpg" alt="UGC Performance Edit frame 1" loading="lazy" class="case-img">
-              <img src="assets/case-ugc-2.jpg" alt="UGC Performance Edit frame 2" loading="lazy" class="case-img">
+        </section>
+
+        <section id="services" class="section reveal">
+            <div class="container">
+                <h2>Editing Services</h2>
+                <div class="service-grid">
+                    <div class="service">
+                        <h3>Short-form Editing</h3>
+                        <p>Performance-focused cuts for ads, reels, shorts, and social. Hook-first pacing, motion accents, subtitles, and platform-optimized exports.</p>
+                    </div>
+                    <div class="service">
+                        <h3>Long-form Editing</h3>
+                        <p>Narrative structure, sound design, color polish, and graphics for explainers, interviews, and branded content.</p>
+                    </div>
+                    <div class="service">
+                        <h3>Versioning at Scale</h3>
+                        <p>Systematic variants for A/B tests, fast turnarounds, and campaign consistency across placements.</p>
+                    </div>
+                </div>
             </div>
-            <div class="case-copy">
-              <h3>UGC Performance Edit</h3>
-              <ul>
-                <li>Hook-first edit improved hold rate to 41% at 3s.</li>
-                <li>CPV down 29% across paid distribution.</li>
-                <li>Subtitles styled for retention on mobile.</li>
-              </ul>
-              <a href="#work" class="case-link">See project →</a>
+        </section>
+
+        <section id="about" class="section reveal">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-media">
+                        <img src="https://via.placeholder.com/340x340?text=Matheus" alt="Matheus">
+                    </div>
+                    <div class="about-copy">
+                        <h2>About</h2>
+                        <p>I'm Matheus, a video editor. I craft cinematic edits that elevate brand stories and drive measurable performance. I work end-to-end with clear briefs, tight feedback loops, and on-brand delivery.</p>
+                        <ul class="about-bullets">
+                            <li>Editing only — laser focus on storytelling and pacing</li>
+                            <li>DaVinci Resolve / Premiere Pro workflow</li>
+                            <li>Sound polish, color accents, dynamic subtitles</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </article>
+        </section>
+
+        <section id="testimonials" class="section reveal">
+            <div class="container">
+                <h2>Trusted by clients</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <div class="avatar">RS</div>
+                        <div class="testimonial-copy">
+                            <div class="name">Rodrigo Silva</div>
+                            <div class="title">CEO, Fox Sales</div>
+                            <div class="stars">★★★★★</div>
+                            <p>“Matheus edits with precision and intent. Our campaign videos felt premium and performed above benchmark.”</p>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="avatar">PM</div>
+                        <div class="testimonial-copy">
+                            <div class="name">Pedro Miguel</div>
+                            <div class="title">Copywriter</div>
+                            <div class="stars">★★★★★</div>
+                            <p>“Snappy cuts, strong hooks, and perfect timing to copy — exactly what performance creatives need.”</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="section reveal">
+            <div class="container">
+                <h2>Simple, transparent pricing</h2>
+                <div class="pricing-grid">
+                    <div class="plan">
+                        <h4>Per Project</h4>
+                        <div class="price"><span class="currency">$</span>24<span class="period">/hr</span></div>
+                        <ul>
+                            <li>Editor-only scope</li>
+                            <li>Quick tasks & one-offs</li>
+                            <li>Billed to nearest 30 min</li>
+                        </ul>
+                        <a class="btn btn-accent" href="#contact">Start small</a>
+                    </div>
+                    <div class="plan plan-featured">
+                        <div class="plan-badge">1 Month</div>
+                        <h4>Campaign Sprint</h4>
+                        <div class="price"><span class="currency">$</span>3,597<span class="period">/mo</span></div>
+                        <ul>
+                            <li>Priority queue</li>
+                            <li>Fast turnarounds</li>
+                            <li>Up to fair-use edits</li>
+                        </ul>
+                        <a class="btn btn-accent" href="#contact">Book this</a>
+                    </div>
+                    <div class="plan">
+                        <h4>Multi-month</h4>
+                        <div class="price"><span class="currency">$</span>3,200<span class="period">/mo</span></div>
+                        <ul>
+                            <li>Best value for teams</li>
+                            <li>Consistent output</li>
+                            <li>Scoped monthly quota</li>
+                        </ul>
+                        <a class="btn btn-accent" href="#contact">Scale content</a>
+                    </div>
+                </div>
+                <p class="pricing-note">Rates align with U.S. market for specialized editors. Hourly tier suits focused tasks; monthly tiers reflect priority access and consistent output. Custom scopes on request.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="section reveal">
+            <div class="container">
+                <h2>Contact</h2>
+                <p>Prefer WhatsApp? Generate a message and send instantly. Or email/Telegram below.</p>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-row">
+                        <label>Your name</label>
+                        <div class="input-wrap">
+                            <span class="icon">👤</span>
+                            <input id="cName" type="text" placeholder="Your name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label>Company</label>
+                        <div class="input-wrap">
+                            <span class="icon">🏢</span>
+                            <input id="cCompany" type="text" placeholder="Company">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label>Project need</label>
+                        <div class="input-wrap">
+                            <span class="icon">🎬</span>
+                            <input id="cProject" type="text" placeholder="Project need">
+                        </div>
+                    </div>
+                    <div class="contact-actions">
+                        <a id="waLink" class="btn btn-accent btn-glow btn-shine" href="#">💬 WhatsApp</a>
+                        <a id="emailLink" class="btn btn-outline btn-shift" href="#">✉️ Email</a>
+                        <a class="btn btn-ghost" href="https://t.me/msfoxsales">📨 Telegram</a>
+                    </div>
+                </form>
+                <p class="contact-meta">WhatsApp: +55 14 99662-1675 · Email: multitask_@outlook.com · Telegram: @msfoxsales</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <span>© <span id="year"></span> Matheus. All rights reserved.</span>
+            <a class="back-to-top" href="#main">Back to top ↑</a>
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <!-- Services -->
-    <section id="services" class="services section" aria-label="Services">
-      <div class="container">
-        <h2>Editing Services</h2>
-        <div class="service-grid">
-          <div class="service">
-            <h3>Short-form Editing</h3>
-            <p>Performance-focused cuts for ads, reels, shorts, and social. Hook-first pacing, motion accents, subtitles, and platform-optimized exports.</p>
-          </div>
-          <div class="service">
-            <h3>Long-form Editing</h3>
-            <p>Narrative structure, sound design, color polish, and graphics for explainers, interviews, and branded content.</p>
-          </div>
-          <div class="service">
-            <h3>Versioning at Scale</h3>
-            <p>Systematic variants for A/B tests, fast turnarounds, and campaign consistency across placements.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="about section" aria-label="About Matheus">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-media">
-            <img src="assets/matheus.jpg" alt="Portrait of Matheus" loading="lazy">
-          </div>
-          <div class="about-copy">
-            <h2>About</h2>
-            <p>I'm Matheus, a video editor. I craft cinematic edits that elevate brand stories and drive measurable performance. I work end‑to‑end with clear briefs, tight feedback loops, and on-brand delivery.</p>
-            <ul class="about-bullets">
-              <li>Editing only — laser focus on storytelling and pacing</li>
-              <li>DaVinci Resolve / Premiere Pro workflow</li>
-              <li>Sound polish, color accents, dynamic subtitles</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonials" class="testimonials section" aria-label="Testimonials">
-      <div class="container">
-        <h2>Trusted by clients</h2>
-        <div class="testimonial-grid">
-          <figure class="testimonial">
-            <div class="avatar" aria-hidden="true">RS</div>
-            <figcaption>
-              <div class="name">Rodrigo Silva</div>
-              <div class="title">CEO, Fox Sales</div>
-              <div class="stars" aria-label="5 out of 5 stars" role="img">★★★★★</div>
-              <blockquote>“Matheus edits with precision and intent. Our campaign videos felt premium and performed above benchmark.”</blockquote>
-            </figcaption>
-          </figure>
-          <figure class="testimonial">
-            <div class="avatar" aria-hidden="true">PM</div>
-            <figcaption>
-              <div class="name">Pedro Miguel</div>
-              <div class="title">Copywriter</div>
-              <div class="stars" aria-label="5 out of 5 stars" role="img">★★★★★</div>
-              <blockquote>“Snappy cuts, strong hooks, and perfect timing to copy — exactly what performance creatives need.”</blockquote>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing" class="pricing section" aria-label="Pricing plans">
-      <div class="container">
-        <h2>Simple, transparent pricing</h2>
-        <div class="pricing-grid">
-          <div class="plan">
-            <div class="plan-badge">Per Project</div>
-            <h3>Hourly</h3>
-            <div class="price"><span class="currency">$</span>24<span class="period">/hr</span></div>
-            <ul>
-              <li>Editor-only scope</li>
-              <li>Quick tasks & one-offs</li>
-              <li>Billed to nearest 30 min</li>
-            </ul>
-            <a href="#contact" class="btn btn-outline">Start small</a>
-          </div>
-          <div class="plan plan-featured">
-            <div class="plan-badge">1 Month</div>
-            <h3>Campaign Sprint</h3>
-            <div class="price"><span class="currency">$</span>3,597<span class="period">/mo</span></div>
-            <ul>
-              <li>Priority queue</li>
-              <li>Fast turnarounds</li>
-              <li>Up to fair-use edits</li>
-            </ul>
-            <a href="#contact" class="btn btn-accent">Book this</a>
-          </div>
-          <div class="plan">
-            <div class="plan-badge">Multi-month</div>
-            <h3>Ongoing</h3>
-            <div class="price"><span class="currency">$</span>3,200<span class="period">/mo</span></div>
-            <ul>
-              <li>Best value for teams</li>
-              <li>Consistent output</li>
-              <li>Scoped monthly quota</li>
-            </ul>
-            <a href="#contact" class="btn btn-outline">Scale content</a>
-          </div>
-        </div>
-        <p class="pricing-note">Rates align with U.S. market for specialized editors. Hourly tier suits focused tasks; monthly tiers reflect priority access and consistent output. Custom scopes on request.</p>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="contact section" aria-label="Contact Matheus">
-      <div class="container">
-        <h2>Contact</h2>
-        <p>Prefer WhatsApp? Generate a message and send instantly. Or email/Telegram below.</p>
-        <form id="contactForm" class="contact-form reveal" aria-label="WhatsApp message generator">
-          <div class="form-row">
-            <label for="cName">Your name</label>
-            <div class="input-wrap">
-              <span class="icon" aria-hidden="true">👤</span>
-              <input id="cName" name="name" type="text" placeholder="John Doe" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <label for="cCompany">Company</label>
-            <div class="input-wrap">
-              <span class="icon" aria-hidden="true">🏢</span>
-              <input id="cCompany" name="company" type="text" placeholder="Acme Inc.">
-            </div>
-          </div>
-          <div class="form-row">
-            <label for="cProject">Project need</label>
-            <div class="input-wrap">
-              <span class="icon" aria-hidden="true">🎬</span>
-              <input id="cProject" name="project" type="text" placeholder="Short-form editing for ads" required>
-            </div>
-          </div>
-          <div class="cta-row contact-actions">
-            <a id="waLink" class="btn btn-accent btn-glow" href="#" target="_blank" rel="noopener"><span class="icon-left">💬</span> WhatsApp</a>
-            <a id="emailLink" class="btn btn-ghost btn-shine" href="#">✉️ Email</a>
-            <a class="btn btn-outline btn-shift" href="https://t.me/msfoxsales" target="_blank" rel="noopener">📨 Telegram</a>
-          </div>
-          <p class="contact-meta">WhatsApp: +55 14 99662-1675 · Email: multitask_@outlook.com · Telegram: @msfoxsales</p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div>© <span id="year"></span> Matheus. All rights reserved.</div>
-      <a href="#top" class="back-to-top">Back to top ↑</a>
-    </div>
-  </footer>
-
-  <script src="app.js" defer></script>
+    <script src="app.js"></script>
 </body>
-<!--
-Notes:
-- Place your portrait at assets/matheus.jpg (500–1000px wide, optimized WebP/AVIF recommended).
-- All animations respect prefers-reduced-motion.
--->
 </html>
-
+</DOCUMENT>
