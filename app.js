@@ -1,0 +1,104 @@
+// Util
+const $ = (q, c = document) => c.querySelector(q);
+const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
+
+// Data: videos (provided links)
+const videos = [
+  { id: '32V0GzI7I2o', title: 'Dynamic Edit — Highlight', tag: 'case', duration: '02:02', poster: 'https://i.ytimg.com/vi/32V0GzI7I2o/hqdefault.jpg', type: 'youtube' },
+  { id: '9zOpEKGi1fA', title: 'Ad Cut — Momentum', tag: 'ad', duration: '01:21', poster: 'https://i.ytimg.com/vi/9zOpEKGi1fA/hqdefault.jpg', type: 'youtube' },
+  { id: '8Jd-bwOBiXo', title: 'Short — Vertical Performance', tag: 'short', duration: '00:23', poster: 'https://i.ytimg.com/vi/8Jd-bwOBiXo/hqdefault.jpg', type: 'short' },
+  { id: '_knXPHAiMuE', title: 'Short — Fast Hook', tag: 'short', duration: '00:19', poster: 'https://i.ytimg.com/vi/_knXPHAiMuE/hqdefault.jpg', type: 'short' },
+  { id: 'oAGIIzr0A3g', title: 'Short — Story Beat', tag: 'short', duration: '00:17', poster: 'https://i.ytimg.com/vi/oAGIIzr0A3g/hqdefault.jpg', type: 'short' },
+];
+
+const state = { filter: 'all' };
+
+function renderGallery() {
+  const grid = $('#gallery');
+  grid.innerHTML = '';
+  const list = videos.filter(v => state.filter === 'all' || v.tag === state.filter);
+  list.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'thumb';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.dataset.id = v.id;
+    card.dataset.type = v.type;
+    card.innerHTML = `
+      <img loading="lazy" alt="${v.title}" src="${v.poster}">
+      <div class="play-badge" aria-hidden="true"></div>
+      <div class="meta"><span>${v.title}</span><span>${v.duration}</span></div>
+    `;
+    card.addEventListener('click', () => openPlayer(v));
+    card.addEventListener('keypress', (e) => { if (e.key === 'Enter') openPlayer(v); });
+    grid.appendChild(card);
+  });
+}
+
+function openPlayer(video) {
+  let player = $('.player');
+  if (!player) {
+    player = document.createElement('div');
+    player.className = 'player';
+    $('.bezel').appendChild(player);
+  }
+  const src = video.type === 'short'
+    ? `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`
+    : `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`;
+
+  player.innerHTML = `
+    <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
+    <div class="player-ui">
+      <div class="cta">
+        <a class="btn btn-outline" href="#cases">See project →</a>
+        <a class="btn btn-ghost" href="#contact">Contact</a>
+        <button class="btn" id="closePlayer" aria-label="Close video">Close</button>
+      </div>
+    </div>`;
+  player.classList.add('active');
+  $('#closePlayer').addEventListener('click', () => player.classList.remove('active'));
+}
+
+function setupFilters() {
+  $$('.filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $$('.filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.filter = btn.dataset.filter;
+      renderGallery();
+    });
+  });
+}
+
+function setupContact() {
+  const wa = $('#waLink');
+  const email = $('#emailLink');
+  const form = $('#contactForm');
+  const encode = (s) => encodeURIComponent(s);
+  const phone = '5514996621675';
+  const buildMessage = () => {
+    const name = $('#cName').value.trim() || 'Friend';
+    const company = $('#cCompany').value.trim() || '';
+    const project = $('#cProject').value.trim() || 'a video editing project';
+    const cPart = company ? ` I work at ${company}` : '';
+    return `hello Matheus, my name is ${name}, i work on ${company || '(company)'} and i want ${project}` + `\n\n— Generated via portfolio site`;
+  };
+  const updateLinks = () => {
+    const text = buildMessage();
+    wa.href = `https://wa.me/${phone}?text=${encode(text)}`;
+    email.href = `mailto:multitask_@outlook.com?subject=Editing%20Inquiry&body=${encode(text)}`;
+  };
+  form.addEventListener('input', updateLinks);
+  updateLinks();
+}
+
+function setYear(){ $('#year').textContent = new Date().getFullYear(); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupFilters();
+  renderGallery();
+  setupContact();
+  setYear();
+});
+
+
