@@ -1,4 +1,3 @@
-<DOCUMENT filename="app.js">
 // Util
 const $ = (q, c = document) => c.querySelector(q);
 const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
@@ -100,11 +99,11 @@ function setupContact() {
 
 function setYear(){ $('#year').textContent = new Date().getFullYear(); }
 
-function setupCaseProjects() {
-  $$('.see-project').forEach(link => {
+function setupCaseLinks() {
+  $$('.case-link').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      document.querySelector('.hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelector('.device-screen').scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   });
 }
@@ -116,15 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
   setYear();
   setupTilt();
   setupReveal();
-  setupCaseProjects();
+  setupCaseLinks();
 });
 
-// Interactive tilt for laptop following mouse with enhanced screen parallax
+// Interactive tilt for laptop following mouse
 function setupTilt(){
   const stage = document.querySelector('.stage');
   const laptop = document.querySelector('.laptop');
-  const ui = document.querySelector('.in-device-ui');
-  if(!stage || !laptop || !ui) return;
+  if(!stage || !laptop) return;
   const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
   let rect;
   const onMove = (e)=>{
@@ -134,19 +132,13 @@ function setupTilt(){
     const rotY = clamp((x - .5) * 28, -28, 28);
     const rotX = clamp((.5 - y) * 18 + 14, -2, 26);
     laptop.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    // Enhanced: subtle parallax for screen content
-    ui.style.transform = `translate(${rotY * -0.3}px, ${rotX * -0.4}px)`;
   };
-  const reset = ()=>{ 
-    laptop.style.transform = 'rotateX(14deg) rotateY(-18deg)'; 
-    ui.style.transform = 'translate(0, 0)';
-    rect = null; 
-  };
+  const reset = ()=>{ laptop.style.transform = 'rotateX(14deg) rotateY(-18deg)'; rect = null; };
   stage.addEventListener('mousemove', onMove);
   stage.addEventListener('mouseleave', reset);
 }
 
-// Reveal-on-scroll animations with improved easing
+// Reveal-on-scroll animations
 function setupReveal(){
   const els = $$('.reveal');
   if(!('IntersectionObserver' in window)){
@@ -154,7 +146,6 @@ function setupReveal(){
   }
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('is-visible'); io.unobserve(ent.target); } });
-  },{threshold:.1});
+  },{threshold:.2});
   els.forEach(el=>io.observe(el));
 }
-</DOCUMENT>
