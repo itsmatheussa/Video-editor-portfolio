@@ -48,7 +48,7 @@ function openPlayer(video) {
     : `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`;
 
   player.innerHTML = `
-    <iframe title="${v.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
+    <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
     <div class="player-ui">
       <div class="cta">
         <a class="btn btn-outline" id="seeProject" href="#work">See project →</a>
@@ -104,7 +104,7 @@ function setupCaseProjects() {
   $$('.see-project').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      document.querySelector('.device-screen').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.querySelector('.hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 }
@@ -154,7 +154,7 @@ function setupReveal(){
   }
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('is-visible'); io.unobserve(ent.target); } });
-  },{threshold:.2});
+  },{threshold:.1});
   els.forEach(el=>io.observe(el));
 }
 </DOCUMENT>
