@@ -50,13 +50,19 @@ function openPlayer(video) {
     <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
     <div class="player-ui">
       <div class="cta">
-        <a class="btn btn-outline" href="#cases">See project →</a>
+        <a class="btn btn-outline" id="seeProject" href="#work">See project →</a>
         <a class="btn btn-ghost" href="#contact">Contact</a>
         <button class="btn" id="closePlayer" aria-label="Close video">Close</button>
       </div>
     </div>`;
   player.classList.add('active');
-  $('#closePlayer').addEventListener('click', () => player.classList.remove('active'));
+  const stopAndClose = () => {
+    const iframe = player.querySelector('iframe');
+    if (iframe) { iframe.src = 'about:blank'; }
+    player.classList.remove('active');
+  };
+  $('#closePlayer').addEventListener('click', stopAndClose);
+  $('#seeProject').addEventListener('click', (e) => { e.preventDefault(); stopAndClose(); document.querySelector('.device-screen').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
 }
 
 function setupFilters() {
@@ -80,13 +86,12 @@ function setupContact() {
     const name = $('#cName').value.trim() || 'Friend';
     const company = $('#cCompany').value.trim() || '';
     const project = $('#cProject').value.trim() || 'a video editing project';
-    const cPart = company ? ` I work at ${company}` : '';
-    return `hello Matheus, my name is ${name}, i work on ${company || '(company)'} and i want ${project}` + `\n\n— Generated via portfolio site`;
+    return `hello Matheus, my name is ${name}, i work on ${company || '(company)'} and i want ${project}`;
   };
   const updateLinks = () => {
     const text = buildMessage();
     wa.href = `https://wa.me/${phone}?text=${encode(text)}`;
-    email.href = `mailto:multitask_@outlook.com?subject=Editing%20Inquiry&body=${encode(text)}`;
+    email.href = `mailto:multitask_@outlook.com?subject=${encode('Editing Inquiry')}&body=${encode(text)}`;
   };
   form.addEventListener('input', updateLinks);
   updateLinks();
@@ -99,6 +104,38 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGallery();
   setupContact();
   setYear();
+  setupTilt();
+  setupReveal();
 });
 
+// Interactive tilt for laptop following mouse
+function setupTilt(){
+  const stage = document.querySelector('.stage');
+  const laptop = document.querySelector('.laptop');
+  if(!stage || !laptop) return;
+  const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
+  let rect;
+  const onMove = (e)=>{
+    rect = rect || stage.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rotY = clamp((x - .5) * 28, -28, 28);
+    const rotX = clamp((.5 - y) * 18 + 14, -2, 26);
+    laptop.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  };
+  const reset = ()=>{ laptop.style.transform = 'rotateX(14deg) rotateY(-18deg)'; rect = null; };
+  stage.addEventListener('mousemove', onMove);
+  stage.addEventListener('mouseleave', reset);
+}
 
+// Reveal-on-scroll animations
+function setupReveal(){
+  const els = $$('.reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(el=>el.classList.add('is-visible'));return;
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('is-visible'); io.unobserve(ent.target); } });
+  },{threshold:.2});
+  els.forEach(el=>io.observe(el));
+}
