@@ -88,9 +88,8 @@
         <h2>Featured Case Results</h2>
         <div class="case-grid reveal">
           <article class="case">
-            <div class="case-media case-media-duo">
-              <img src="https://images.unsplash.com/photo-1618401479427-c80ef9469be8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fA%3D%3D&auto=format&fit=crop&w=1932&q=80" alt="Product Launch Sizzle frame 1" loading="lazy" class="case-img">
-              <img src="https://images.unsplash.com/photo-1618401479427-c80ef9469be8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fA%3D%3D&auto=format&fit=crop&w=1932&q=80" alt="Product Launch Sizzle frame 2" loading="lazy" class="case-img">
+            <div class="case-media">
+              <img src="assets/case-product-1.jpg" alt="Product Launch Sizzle frame" loading="lazy" class="case-img">
             </div>
             <div class="case-copy">
               <h3>Product Launch Sizzle</h3>
@@ -103,9 +102,8 @@
             </div>
           </article>
           <article class="case">
-            <div class="case-media case-media-duo">
-              <img src="https://images.unsplash.com/photo-1548407260-da850caa615e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="UGC Performance Edit frame 1" loading="lazy" class="case-img">
-              <img src="https://images.unsplash.com/photo-1548407260-da850caa615e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="UGC Performance Edit frame 2" loading="lazy" class="case-img">
+            <div class="case-media">
+              <img src="assets/case-ugc-1.jpg" alt="UGC Performance Edit frame" loading="lazy" class="case-img">
             </div>
             <div class="case-copy">
               <h3>UGC Performance Edit</h3>
@@ -172,7 +170,7 @@
             <figcaption>
               <div class="name">Rodrigo Silva</div>
               <div class="title">CEO, Fox Sales</div>
-              <div class="stars" aria-label="5 out of 5 stars" role="img">★★★★★</div>
+              <div class="stars" aria-label="5 out of 5 stars" role="img"></div>
               <blockquote>“Matheus edits with precision and intent. Our campaign videos felt premium and performed above benchmark.”</blockquote>
             </figcaption>
           </figure>
@@ -181,7 +179,7 @@
             <figcaption>
               <div class="name">Pedro Miguel</div>
               <div class="title">Copywriter</div>
-              <div class="stars" aria-label="5 out of 5 stars" role="img">★★★★★</div>
+              <div class="stars" aria-label="5 out of 5 stars" role="img"></div>
               <blockquote>“Snappy cuts, strong hooks, and perfect timing to copy — exactly what performance creatives need.”</blockquote>
             </figcaption>
           </figure>
@@ -197,7 +195,7 @@
           <div class="plan">
             <div class="plan-badge">Per Project</div>
             <h3>Hourly</h3>
-            <div class="price"><span class="currency">$</span>24<span class="period">/hr</span></div>
+            <div class="price"><span class="currency">$</span><span class="price-value" data-target="22">0</span><span class="period">/hr</span></div>
             <ul>
               <li>Editor-only scope</li>
               <li>Quick tasks & one-offs</li>
@@ -208,7 +206,7 @@
           <div class="plan plan-featured">
             <div class="plan-badge">1 Month</div>
             <h3>Campaign Sprint</h3>
-            <div class="price"><span class="currency">$</span>3,597<span class="period">/mo</span></div>
+            <div class="price"><span class="currency">$</span><span class="price-value" data-target="3277">0</span><span class="period">/mo</span></div>
             <ul>
               <li>Priority queue</li>
               <li>Fast turnarounds</li>
@@ -219,7 +217,7 @@
           <div class="plan">
             <div class="plan-badge">Multi-month</div>
             <h3>Ongoing</h3>
-            <div class="price"><span class="currency">$</span>3,200<span class="period">/mo</span></div>
+            <div class="price"><span class="currency">$</span><span class="price-value" data-target="2889">0</span><span class="period">/mo</span></div>
             <ul>
               <li>Best value for teams</li>
               <li>Consistent output</li>
@@ -249,7 +247,7 @@
             <label for="cCompany">Company</label>
             <div class="input-wrap">
               <span class="icon" aria-hidden="true">🏢</span>
-              <input id="cCompany" name="company" type="text" placeholder="Acme Inc.">
+              <input id="cCompany" name="company" type="text" placeholder="Acme Inc." required>
             </div>
           </div>
           <div class="form-row">
@@ -260,9 +258,7 @@
             </div>
           </div>
           <div class="cta-row contact-actions">
-            <a id="waLink" class="btn btn-accent btn-glow" href="#" target="_blank" rel="noopener"><span class="icon-left">💬</span> WhatsApp</a>
-            <a id="emailLink" class="btn btn-ghost btn-shine" href="#">✉️ Email</a>
-            <a class="btn btn-outline btn-shift" href="https://t.me/msfoxsales" target="_blank" rel="noopener">📨 Telegram</a>
+            <a id="letsStart" class="btn btn-start" href="#" target="_blank" rel="noopener" disabled>Let's Start</a>
           </div>
           <p class="contact-meta"><span class="icon">💬</span> WhatsApp: +55 14 99662-1675 · <span class="icon">✉️</span> Email: multitask_@outlook.com · <span class="icon">📨</span> Telegram: @msfoxsales</p>
         </form>
