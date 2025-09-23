@@ -1,3 +1,4 @@
+<DOCUMENT filename="app.js">
 // Util
 const $ = (q, c = document) => c.querySelector(q);
 const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
@@ -47,7 +48,7 @@ function openPlayer(video) {
     : `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`;
 
   player.innerHTML = `
-    <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
+    <iframe title="${v.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
     <div class="player-ui">
       <div class="cta">
         <a class="btn btn-outline" id="seeProject" href="#work">See project →</a>
@@ -99,6 +100,15 @@ function setupContact() {
 
 function setYear(){ $('#year').textContent = new Date().getFullYear(); }
 
+function setupCaseProjects() {
+  $$('.see-project').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('.device-screen').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   setupFilters();
   renderGallery();
@@ -106,13 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
   setYear();
   setupTilt();
   setupReveal();
+  setupCaseProjects();
 });
 
-// Interactive tilt for laptop following mouse
+// Interactive tilt for laptop following mouse with enhanced screen parallax
 function setupTilt(){
   const stage = document.querySelector('.stage');
   const laptop = document.querySelector('.laptop');
-  if(!stage || !laptop) return;
+  const ui = document.querySelector('.in-device-ui');
+  if(!stage || !laptop || !ui) return;
   const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
   let rect;
   const onMove = (e)=>{
@@ -122,13 +134,19 @@ function setupTilt(){
     const rotY = clamp((x - .5) * 28, -28, 28);
     const rotX = clamp((.5 - y) * 18 + 14, -2, 26);
     laptop.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    // Enhanced: subtle parallax for screen content
+    ui.style.transform = `translate(${rotY * -0.3}px, ${rotX * -0.4}px)`;
   };
-  const reset = ()=>{ laptop.style.transform = 'rotateX(14deg) rotateY(-18deg)'; rect = null; };
+  const reset = ()=>{ 
+    laptop.style.transform = 'rotateX(14deg) rotateY(-18deg)'; 
+    ui.style.transform = 'translate(0, 0)';
+    rect = null; 
+  };
   stage.addEventListener('mousemove', onMove);
   stage.addEventListener('mouseleave', reset);
 }
 
-// Reveal-on-scroll animations
+// Reveal-on-scroll animations with improved easing
 function setupReveal(){
   const els = $$('.reveal');
   if(!('IntersectionObserver' in window)){
@@ -139,3 +157,4 @@ function setupReveal(){
   },{threshold:.2});
   els.forEach(el=>io.observe(el));
 }
+</DOCUMENT>
