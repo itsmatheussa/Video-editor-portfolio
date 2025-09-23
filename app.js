@@ -77,24 +77,30 @@ function setupFilters() {
 }
 
 function setupContact() {
-  const wa = $('#waLink');
-  const email = $('#emailLink');
+  const wa = $('#letsStart');
   const form = $('#contactForm');
+  const nameInput = $('#cName');
+  const companyInput = $('#cCompany');
+  const projectInput = $('#cProject');
   const encode = (s) => encodeURIComponent(s);
   const phone = '5514996621675';
   const buildMessage = () => {
-    const name = $('#cName').value.trim() || 'Friend';
-    const company = $('#cCompany').value.trim() || '';
-    const project = $('#cProject').value.trim() || 'a video editing project';
-    return `hello Matheus, my name is ${name}, i work on ${company || '(company)'} and i want ${project}`;
+    const name = nameInput.value.trim() || 'Friend';
+    const company = companyInput.value.trim() || '(company)';
+    const project = projectInput.value.trim() || 'a video editing project';
+    return `hello Matheus, my name is ${name}, i work on ${company} and i want ${project}`;
   };
-  const updateLinks = () => {
+  const updateLinkAndEnable = () => {
     const text = buildMessage();
     wa.href = `https://wa.me/${phone}?text=${encode(text)}`;
-    email.href = `mailto:multitask_@outlook.com?subject=${encode('Editing Inquiry')}&body=${encode(text)}`;
+    if (nameInput.value.trim() && companyInput.value.trim() && projectInput.value.trim()) {
+      wa.disabled = false;
+    } else {
+      wa.disabled = true;
+    }
   };
-  form.addEventListener('input', updateLinks);
-  updateLinks();
+  form.addEventListener('input', updateLinkAndEnable);
+  updateLinkAndEnable();
 }
 
 function setYear(){ $('#year').textContent = new Date().getFullYear(); }
@@ -108,6 +114,39 @@ function setupCaseLinks() {
   });
 }
 
+function animateNumbers() {
+  $$('.price-value').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    let current = 0;
+    const increment = target / 100;
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        el.textContent = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target;
+      }
+    };
+    update();
+  });
+}
+
+function animateStars() {
+  $$('.stars').forEach(el => {
+    el.innerHTML = '☆☆☆☆☆';
+    let count = 0;
+    const fill = () => {
+      if (count < 5) {
+        el.innerHTML = '★'.repeat(count + 1) + '☆'.repeat(4 - count);
+        count++;
+        setTimeout(fill, 300);
+      }
+    };
+    fill();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   setupFilters();
   renderGallery();
@@ -116,6 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupTilt();
   setupReveal();
   setupCaseLinks();
+  animateNumbers();
+  animateStars();
 });
 
 // Interactive tilt for laptop following mouse
