@@ -2,20 +2,14 @@
 const $ = (q, c = document) => c.querySelector(q);
 const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
 
-// Data: videos (YouTube + Instagram Reels)
+// Data: videos (provided links)
+// Added Shorts from user
 const videos = [
+  { id: 'sUM0eTHUhOU', title: 'YouTube Short 1', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/sUM0eTHUhOU/hqdefault.jpg', type: 'short' },
+  { id: 'I8tJsRSocLs', title: 'YouTube Short 2', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/I8tJsRSocLs/hqdefault.jpg', type: 'short' },
+  { id: 'J2Sm6ysw24A', title: 'YouTube Short 3', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/J2Sm6ysw24A/hqdefault.jpg', type: 'short' },
   { id: '32V0GzI7I2o', title: 'Dynamic Edit — Highlight', tag: 'case', duration: '02:02', poster: 'https://i.ytimg.com/vi/32V0GzI7I2o/hqdefault.jpg', type: 'youtube' },
   { id: '9zOpEKGi1fA', title: 'Ad Cut — Momentum', tag: 'ad', duration: '01:21', poster: 'https://i.ytimg.com/vi/9zOpEKGi1fA/hqdefault.jpg', type: 'youtube' },
-  { id: '8Jd-bwOBiXo', title: 'Short — Vertical Performance', tag: 'short', duration: '00:23', poster: 'https://i.ytimg.com/vi/8Jd-bwOBiXo/hqdefault.jpg', type: 'short' },
-  { id: '_knXPHAiMuE', title: 'Short — Fast Hook', tag: 'short', duration: '00:19', poster: 'https://i.ytimg.com/vi/_knXPHAiMuE/hqdefault.jpg', type: 'short' },
-  { id: 'oAGIIzr0A3g', title: 'Short — Story Beat', tag: 'short', duration: '00:17', poster: 'https://i.ytimg.com/vi/oAGIIzr0A3g/hqdefault.jpg', type: 'short' },
-  // Instagram reels (uniform size in gallery; embedded in player)
-  { id: 'DBcm1e3ofJ1', title: 'Instagram Reel', tag: 'reel', duration: '', type: 'instagram' },
-  { id: 'DAy6St-Pcrd', title: 'Instagram Reel', tag: 'reel', duration: '', type: 'instagram' },
-  { id: 'DAmQpUYvdgF', title: 'Instagram Reel', tag: 'reel', duration: '', type: 'instagram' },
-  { id: 'DAPSLp2t_QK', title: 'Instagram Reel', tag: 'reel', duration: '', type: 'instagram' },
-  { id: 'DAHZeriP64_', title: 'Instagram Reel', tag: 'reel', duration: '', type: 'instagram' },
-  { id: 'DAhYNaGt5jC', title: 'Instagram Reel', tag: 'reel', duration: '', type: 'instagram' },
 ];
 
 const state = { filter: 'all' };
@@ -31,15 +25,10 @@ function renderGallery() {
     card.setAttribute('tabindex', '0');
     card.dataset.id = v.id;
     card.dataset.type = v.type;
-    const hasPoster = Boolean(v.poster);
     card.innerHTML = `
-      ${hasPoster ? `<img loading="lazy" alt="${v.title}" src="${v.poster}">` : `
-        <div class="placeholder" aria-hidden="true">
-          <span class="badge">IG Reel</span>
-        </div>
-      `}
+      <img loading="lazy" alt="${v.title}" src="${v.poster}">
       <div class="play-badge" aria-hidden="true"></div>
-      <div class="meta"><span>${v.title}</span><span>${v.duration || ''}</span></div>
+      <div class="meta"><span>${v.title}</span><span>${v.duration}</span></div>
     `;
     card.addEventListener('click', () => openPlayer(v));
     card.addEventListener('keypress', (e) => { if (e.key === 'Enter') openPlayer(v); });
@@ -54,13 +43,7 @@ function openPlayer(video) {
     player.className = 'player';
     $('.bezel').appendChild(player);
   }
-  let src;
-  if (video.type === 'instagram') {
-    // Instagram ignores autoplay in many cases, but we include it to attempt autoplay on click
-    src = `https://www.instagram.com/reel/${video.id}/embed/?autoplay=1`;
-  } else {
-    src = `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`;
-  }
+  const src = `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`;
 
   player.innerHTML = `
     <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
