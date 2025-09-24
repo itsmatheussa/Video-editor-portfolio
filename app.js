@@ -2,19 +2,13 @@
 const $ = (q, c = document) => c.querySelector(q);
 const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
 
-// Data: videos (including new Instagram reels)
+// Data: videos (provided links)
 const videos = [
   { id: '32V0GzI7I2o', title: 'Dynamic Edit — Highlight', tag: 'case', duration: '02:02', poster: 'https://i.ytimg.com/vi/32V0GzI7I2o/hqdefault.jpg', type: 'youtube' },
   { id: '9zOpEKGi1fA', title: 'Ad Cut — Momentum', tag: 'ad', duration: '01:21', poster: 'https://i.ytimg.com/vi/9zOpEKGi1fA/hqdefault.jpg', type: 'youtube' },
   { id: '8Jd-bwOBiXo', title: 'Short — Vertical Performance', tag: 'short', duration: '00:23', poster: 'https://i.ytimg.com/vi/8Jd-bwOBiXo/hqdefault.jpg', type: 'short' },
   { id: '_knXPHAiMuE', title: 'Short — Fast Hook', tag: 'short', duration: '00:19', poster: 'https://i.ytimg.com/vi/_knXPHAiMuE/hqdefault.jpg', type: 'short' },
   { id: 'oAGIIzr0A3g', title: 'Short — Story Beat', tag: 'short', duration: '00:17', poster: 'https://i.ytimg.com/vi/oAGIIzr0A3g/hqdefault.jpg', type: 'short' },
-  { id: 'DBcm1e3ofJ1', title: 'Instagram Reel 1', tag: 'reel', duration: '00:15', poster: 'https://via.placeholder.com/320x180?text=Reel+1', type: 'instagram' },
-  { id: 'DAy6St-Pcrd', title: 'Instagram Reel 2', tag: 'reel', duration: '00:20', poster: 'https://via.placeholder.com/320x180?text=Reel+2', type: 'instagram' },
-  { id: 'DAmQpUYvdgF', title: 'Instagram Reel 3', tag: 'reel', duration: '00:18', poster: 'https://via.placeholder.com/320x180?text=Reel+3', type: 'instagram' },
-  { id: 'DAPSLp2t_QK', title: 'Instagram Reel 4', tag: 'reel', duration: '00:25', poster: 'https://via.placeholder.com/320x180?text=Reel+4', type: 'instagram' },
-  { id: 'DAHZeriP64_', title: 'Instagram Reel 5', tag: 'reel', duration: '00:22', poster: 'https://via.placeholder.com/320x180?text=Reel+5', type: 'instagram' },
-  { id: 'DAhYNaGt5jC', title: 'Instagram Reel 6', tag: 'reel', duration: '00:30', poster: 'https://via.placeholder.com/320x180?text=Reel+6', type: 'instagram' },
 ];
 
 const state = { filter: 'all' };
@@ -48,14 +42,12 @@ function openPlayer(video) {
     player.className = 'player';
     $('.bezel').appendChild(player);
   }
-  const src = video.type === 'youtube'
+  const src = video.type === 'short'
     ? `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`
-    : video.type === 'instagram'
-    ? `https://www.instagram.com/reel/${video.id}/?utm_source=ig_web_copy_link`
     : `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`;
 
   player.innerHTML = `
-    <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}" style="border:none;"></iframe>
+    <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
     <div class="player-ui">
       <div class="cta">
         <a class="btn btn-outline" id="seeProject" href="#work">See project →</a>
