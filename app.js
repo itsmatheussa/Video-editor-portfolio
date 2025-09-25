@@ -64,6 +64,14 @@ function openPlayer(video) {
   };
   $('#closePlayer').addEventListener('click', stopAndClose);
   $('#seeProject').addEventListener('click', (e) => { e.preventDefault(); stopAndClose(); document.querySelector('.device-screen').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
+  // Trigger power-on pulse on the in-device screen when opening a video
+  const screen = document.querySelector('.device-screen');
+  if (screen) {
+    screen.classList.remove('power-on');
+    // reflow to restart animation
+    void screen.offsetWidth;
+    screen.classList.add('power-on');
+  }
 }
 
 function setupFilters() {
@@ -92,20 +100,25 @@ function setupContact() {
     const company = companyInput.value.trim() || '(company)';
     const project = projectInput.value.trim() || 'a video editing project';
     const base = `hello Matheus, my name is ${name}, i work on ${company} and i want ${project}`;
-    // Hidden marker: zero-width joiner + thin spaces to avoid visibility
-    const hidden = selectedPlanCode ? `\u200D\u200A${selectedPlanCode}\u200A` : '';
-    return base + hidden;
+    let planText = '';
+    if (selectedPlanCode) {
+      const label = selectedPlanCode === '1' ? 'daily plan' : selectedPlanCode === '2' ? 'one month plan' : 'multi-month plan';
+      planText = ` — Plan: ${label} (${selectedPlanCode})`;
+    }
+    return base + planText;
   };
   const updateLinkAndEnable = () => {
     const text = buildMessage();
     wa.href = `https://wa.me/${phone}?text=${encode(text)}`;
-    // Allow sending without requiring all fields
-    wa.classList.remove('disabled');
+    const allFilled = nameInput.value.trim() && companyInput.value.trim() && projectInput.value.trim();
+    wa.classList.toggle('disabled', !allFilled);
   };
   form.addEventListener('input', updateLinkAndEnable);
   updateLinkAndEnable();
   wa.addEventListener('click', (e) => {
-    // no-op; sending always allowed
+    if (wa.classList.contains('disabled')) {
+      e.preventDefault();
+    }
   });
   // Plan selection buttons set hidden code but are optional
   planButtons.forEach(btn => {
@@ -206,6 +219,14 @@ function setupAnimationOnView(){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Intro clapboard animation and initial laptop screen power-on
+  const clap = document.getElementById('clapboard');
+  if(clap){
+    requestAnimationFrame(()=>{
+      clap.classList.add('reveal');
+      setTimeout(()=>{ clap.style.display = 'none'; }, 1700);
+    });
+  }
   setupFilters();
   renderGallery();
   setupContact();
@@ -214,6 +235,12 @@ document.addEventListener('DOMContentLoaded', () => {
   setupReveal();
   setupCaseLinks();
   setupAnimationOnView();
+  // Initial pulse to simulate screen powering on at load
+  const screen = document.querySelector('.device-screen');
+  if(screen){
+    screen.classList.add('power-on');
+    setTimeout(()=>screen.classList.remove('power-on'), 2000);
+  }
 });
 
 // Interactive tilt for laptop following mouse
