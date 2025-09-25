@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if(clap){
     requestAnimationFrame(()=>{
       clap.classList.add('reveal');
-      setTimeout(()=>{ clap.style.display = 'none'; }, 1700);
+      setTimeout(()=>{ clap.style.display = 'none'; }, 6000);
     });
   }
   setupFilters();
