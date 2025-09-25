@@ -83,26 +83,36 @@ function setupContact() {
   const nameInput = $('#cName');
   const companyInput = $('#cCompany');
   const projectInput = $('#cProject');
+  const planButtons = $$('.plan-select');
+  let selectedPlanCode = '';
   const encode = (s) => encodeURIComponent(s);
   const phone = '5514996621675';
   const buildMessage = () => {
     const name = nameInput.value.trim() || 'Friend';
     const company = companyInput.value.trim() || '(company)';
     const project = projectInput.value.trim() || 'a video editing project';
-    return `hello Matheus, my name is ${name}, i work on ${company} and i want ${project}`;
+    const base = `hello Matheus, my name is ${name}, i work on ${company} and i want ${project}`;
+    // Hidden marker: zero-width joiner + thin spaces to avoid visibility
+    const hidden = selectedPlanCode ? `\u200D\u200A${selectedPlanCode}\u200A` : '';
+    return base + hidden;
   };
   const updateLinkAndEnable = () => {
     const text = buildMessage();
     wa.href = `https://wa.me/${phone}?text=${encode(text)}`;
-    const allFilled = nameInput.value.trim() && companyInput.value.trim() && projectInput.value.trim();
-    wa.classList.toggle('disabled', !allFilled);
+    // Allow sending without requiring all fields
+    wa.classList.remove('disabled');
   };
   form.addEventListener('input', updateLinkAndEnable);
   updateLinkAndEnable();
   wa.addEventListener('click', (e) => {
-    if (wa.classList.contains('disabled')) {
-      e.preventDefault();
-    }
+    // no-op; sending always allowed
+  });
+  // Plan selection buttons set hidden code but are optional
+  planButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedPlanCode = btn.dataset.plan || '';
+      updateLinkAndEnable();
+    });
   });
 }
 
@@ -137,16 +147,28 @@ function animateNumbers() {
 
 function animateStars() {
   $$('.stars').forEach(el => {
-    el.innerHTML = '☆☆☆☆☆';
-    let count = 0;
-    const fill = () => {
-      if (count < 5) {
-        el.innerHTML = '★'.repeat(count + 1) + '☆'.repeat(4 - count);
-        count++;
-        setTimeout(fill, 300);
+    el.innerHTML = '<span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>';
+    const stars = $$('.star', el);
+    let index = 0;
+    const fillNext = () => {
+      if (index < stars.length) {
+        const s = stars[index];
+        s.textContent = '★';
+        s.classList.add('filled','jump');
+        setTimeout(()=>{ s.classList.remove('jump'); }, 450);
+        index++;
+        setTimeout(fillNext, 420); // slower fill
+      } else {
+        // after all filled, stagger a quick sequential hop and then glow gold
+        stars.forEach((s,i)=>{
+          setTimeout(()=>{
+            s.classList.add('jump');
+            setTimeout(()=>{ s.classList.remove('jump'); s.classList.add('glow'); }, 450);
+          }, i*80);
+        });
       }
     };
-    fill();
+    fillNext();
   });
 }
 
