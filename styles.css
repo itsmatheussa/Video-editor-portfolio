@@ -96,6 +96,13 @@ h2{font-family:"Playfair Display",serif;font-size:32px;margin:0 0 18px}
 .name{font-weight:700}
 .title{color:var(--muted);font-size:13px}
 .stars{color:#FFD66B;letter-spacing:2px;margin:6px 0}
+/* Star animation pieces */
+.stars .star{display:inline-block;transform-origin:center bottom}
+.stars .star.filled{color:#FFD66B}
+.stars .star.jump{animation:star-jump .45s cubic-bezier(.22,1,.36,1) both}
+.stars .star.glow{animation:star-glow 1.6s ease-in-out infinite alternate}
+@keyframes star-jump{0%{transform:translateY(0) scale(1)}40%{transform:translateY(-8px) scale(1.1)}100%{transform:translateY(0) scale(1)}}
+@keyframes star-glow{0%{text-shadow:0 0 0 rgba(255,214,107,0)}100%{text-shadow:0 0 14px rgba(255,214,107,.9)}}
 
 /* Pricing */
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -113,15 +120,15 @@ h2{font-family:"Playfair Display",serif;font-size:32px;margin:0 0 18px}
 .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-row{display:flex;flex-direction:column;gap:6px;background:linear-gradient(180deg,#121821,#0f151d);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);transition:box-shadow .3s}
 .form-row:focus-within{box-shadow:0 10px 30px rgba(0,194,255,.2)}
-.input-wrap{display:flex;align-items:center;gap:8px;background:#0e141b;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 10px;transition:border-color .3s}
+.input-wrap{display:flex;align-items:center;gap:8px;background:#0e141b;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 10px;transition:border-color .3s;max-width:100%;min-width:0}
 .form-row:focus-within .input-wrap{border-color:var(--accent)}
 .icon{opacity:.9}
-.form-row input{flex:1;background:transparent;border:0;color:var(--text);padding:8px}
+.form-row input{flex:1;background:transparent;border:0;color:var(--text);padding:8px;min-width:0;width:100%}
 .contact-actions .btn{position:relative;overflow:hidden;font-size:14px;padding:10px 20px;height:40px;line-height:20px}
 .btn-start{background:#000;color:#fff;border-radius:9999px;transition:background .3s}
 .btn-start:hover{background:var(--accent);color:#000}
 .btn-start.disabled{opacity:0.5;cursor:not-allowed;pointer-events:none}
-.contact-meta{color:var(--muted);display:flex;align-items:center;gap:6px}
+.contact-meta{color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap;word-break:break-word;overflow-wrap:anywhere}
 
 /* Footer */
 .site-footer{border-top:1px solid rgba(255,255,255,.06);padding:20px 0;color:var(--muted)}
