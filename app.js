@@ -105,7 +105,7 @@ function setupContact() {
     let planText = '';
     if (selectedPlanCode) {
       const label = selectedPlanCode === '1' ? 'daily plan' : selectedPlanCode === '2' ? 'one month plan' : 'multi-month plan';
-      planText = ` — Plan: ${label} (${selectedPlanCode})`;
+      planText = `hiring you on a ${label} (${selectedPlanCode})`;
     }
     return base + planText;
   };
