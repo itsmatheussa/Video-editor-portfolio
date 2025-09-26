@@ -8,11 +8,11 @@ const videos = [
   { id: 'sUM0eTHUhOU', title: 'YouTube Short 1', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/sUM0eTHUhOU/hqdefault.jpg', type: 'short' },
   { id: 'I8tJsRSocLs', title: 'YouTube Short 2', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/I8tJsRSocLs/hqdefault.jpg', type: 'short' },
   { id: 'J2Sm6ysw24A', title: 'YouTube Short 3', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/J2Sm6ysw24A/hqdefault.jpg', type: 'short' },
-  { id: 'oAGIIzr0A3g', title: 'Short — Story Beat', tag: 'short', duration: '00:17', poster: 'https://i.ytimg.com/vi/oAGIIzr0A3g/hqdefault.jpg', type: 'short' },
-  { id: '8Jd-bwOBiXo', title: 'Short — Vertical Performance', tag: 'short', duration: '00:23', poster: 'https://i.ytimg.com/vi/8Jd-bwOBiXo/hqdefault.jpg', type: 'short' },
-  { id: 'ySFYv16bg7k', title: 'YouTube Short — ySFYv16bg7k', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/ySFYv16bg7k/hqdefault.jpg', type: 'short' },
-  { id: '_knXPHAiMuE', title: 'YouTube Short — _knXPHAiMuE', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/_knXPHAiMuE/hqdefault.jpg', type: 'short' },
-  { id: '32V0GzI7I2o', title: 'Dynamic Edit — Highlight', tag: 'case', duration: '02:02', poster: 'https://i.ytimg.com/vi/32V0GzI7I2o/hqdefault.jpg', type: 'youtube' },
+  { id: 'oAGIIzr0A3g', title: 'Short — Travel company', tag: 'short', duration: '00:17', poster: 'https://i.ytimg.com/vi/oAGIIzr0A3g/hqdefault.jpg', type: 'short' },
+  { id: '8Jd-bwOBiXo', title: 'Ad — Fitness AI', tag: 'short', duration: '00:23', poster: 'https://i.ytimg.com/vi/8Jd-bwOBiXo/hqdefault.jpg', type: 'short' },
+  { id: 'ySFYv16bg7k', title: 'YouTube Short 4', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/ySFYv16bg7k/hqdefault.jpg', type: 'short' },
+  { id: '_knXPHAiMuE', title: 'Ad — Time restriction app', tag: 'short', duration: '00:30', poster: 'https://i.ytimg.com/vi/_knXPHAiMuE/hqdefault.jpg', type: 'short' },
+  { id: '32V0GzI7I2o', title: 'Ad — Cleaning company', tag: 'case', duration: '02:02', poster: 'https://i.ytimg.com/vi/32V0GzI7I2o/hqdefault.jpg', type: 'youtube' },
   { id: '9zOpEKGi1fA', title: 'Ad Cut — Momentum', tag: 'ad', duration: '01:21', poster: 'https://i.ytimg.com/vi/9zOpEKGi1fA/hqdefault.jpg', type: 'youtube' },
 ];
 
