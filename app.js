@@ -221,14 +221,7 @@ function setupAnimationOnView(){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Intro clapboard animation and initial laptop screen power-on
-  const clap = document.getElementById('clapboard');
-  if(clap){
-    requestAnimationFrame(()=>{
-      clap.classList.add('reveal');
-      setTimeout(()=>{ clap.style.display = 'none'; }, 6000);
-    });
-  }
+  // Removed clapboard intro
   setupFilters();
   renderGallery();
   setupContact();
