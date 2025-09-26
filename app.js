@@ -101,7 +101,7 @@ function setupContact() {
     const name = nameInput.value.trim() || 'Friend';
     const company = companyInput.value.trim() || '(company)';
     const project = projectInput.value.trim() || 'a video editing project';
-    const base = `hello Matheus, my name is ${name}, i work on ${company} and i want ${project}`;
+    const base = `hello Matheus, my name is ${name}, i work on ${company}, i want ${project}`;
     let planText = '';
     if (selectedPlanCode) {
       const label = selectedPlanCode === '1' ? 'daily plan' : selectedPlanCode === '2' ? 'one month plan' : 'multi-month plan';
