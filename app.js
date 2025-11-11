@@ -1,7 +1,6 @@
 // Util
 const $ = (q, c = document) => c.querySelector(q);
 const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
-
 // Data: videos (provided links)
 // Added Shorts from user
 const videos = [
@@ -15,9 +14,7 @@ const videos = [
   { id: '32V0GzI7I2o', title: 'Ad — Cleaning company', tag: 'ad', duration: '02:02', poster: 'https://i.ytimg.com/vi/32V0GzI7I2o/hqdefault.jpg', type: 'youtube' },
   { id: '9zOpEKGi1fA', title: 'Ad Cut — Momentum', tag: 'ad', duration: '01:21', poster: 'https://i.ytimg.com/vi/9zOpEKGi1fA/hqdefault.jpg', type: 'youtube' },
 ];
-
 const state = { filter: 'all' };
-
 function renderGallery() {
   const grid = $('#gallery');
   grid.innerHTML = '';
@@ -39,7 +36,6 @@ function renderGallery() {
     grid.appendChild(card);
   });
 }
-
 function openPlayer(video) {
   let player = $('.player');
   if (!player) {
@@ -48,7 +44,6 @@ function openPlayer(video) {
     $('.bezel').appendChild(player);
   }
   const src = `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0`;
-
   player.innerHTML = `
     <iframe title="${video.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src="${src}"></iframe>
     <div class="player-ui">
@@ -75,7 +70,6 @@ function openPlayer(video) {
     screen.classList.add('power-on');
   }
 }
-
 function setupFilters() {
   $$('.filter').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -86,7 +80,6 @@ function setupFilters() {
     });
   });
 }
-
 function setupContact() {
   const wa = $('#letsStart');
   const form = $('#contactForm');
@@ -130,9 +123,7 @@ function setupContact() {
     });
   });
 }
-
 function setYear(){ $('#year').textContent = new Date().getFullYear(); }
-
 function setupCaseLinks() {
   $$('.case-link').forEach(link => {
     link.addEventListener('click', (e) => {
@@ -141,7 +132,6 @@ function setupCaseLinks() {
     });
   });
 }
-
 function animateNumbers() {
   $$('.price-value').forEach(el => {
     const target = parseInt(el.dataset.target);
@@ -159,7 +149,6 @@ function animateNumbers() {
     update();
   });
 }
-
 function animateStars() {
   $$('.stars').forEach(el => {
     el.innerHTML = '<span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>';
@@ -186,7 +175,6 @@ function animateStars() {
     fillNext();
   });
 }
-
 // Trigger pricing and testimonial animations only when visible
 function setupAnimationOnView(){
   const pricingSection = document.querySelector('#pricing');
@@ -219,14 +207,12 @@ function setupAnimationOnView(){
     starObserver.observe(testimonialsSection);
   }
 }
-
 document.addEventListener('DOMContentLoaded', () => {
   // Removed clapboard intro
   setupFilters();
   renderGallery();
   setupContact();
   setYear();
-  setupTilt();
   setupReveal();
   setupCaseLinks();
   setupAnimationOnView();
@@ -237,27 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(()=>screen.classList.remove('power-on'), 2000);
   }
 });
-
-// Interactive tilt for laptop following mouse
-function setupTilt(){
-  const stage = document.querySelector('.stage');
-  const laptop = document.querySelector('.laptop');
-  if(!stage || !laptop) return;
-  const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
-  let rect;
-  const onMove = (e)=>{
-    rect = rect || stage.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    const rotY = clamp((x - .5) * 28, -28, 28);
-    const rotX = clamp((.5 - y) * 18 + 14, -2, 26);
-    laptop.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-  };
-  const reset = ()=>{ laptop.style.transform = 'rotateX(14deg) rotateY(-18deg)'; rect = null; };
-  stage.addEventListener('mousemove', onMove);
-  stage.addEventListener('mouseleave', reset);
-}
-
 // Reveal-on-scroll animations
 function setupReveal(){
   const els = $$('.reveal');
